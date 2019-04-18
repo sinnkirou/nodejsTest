@@ -1,3 +1,4 @@
-var events= require('events');
-var emitter=new events.EventEmitter();
+const events = require('events');
+
+const emitter = new events.EventEmitter();
 emitter.emit('error');

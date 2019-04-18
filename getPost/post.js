@@ -1,15 +1,15 @@
-var http=require('http');
-var querystring=require('querystring');
-var util=require('util');
+const http = require('http');
+const querystring = require('querystring');
+const util = require('util');
 
-http.createServer(function(req,res){
-  var post='';
-  req.on('data',function(chunk){
-    post+=chunk;
-  })
+http.createServer((req, res) => {
+  let post = '';
+  req.on('data', (chunk) => {
+    post += chunk;
+  });
 
-  req.on('end',function(){
-    post=querystring.parse(post);
+  req.on('end', () => {
+    post = querystring.parse(post);
     res.end(util.inspect(post));
   });
 }).listen(3000);

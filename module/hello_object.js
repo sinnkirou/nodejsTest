@@ -1,10 +1,10 @@
-function Hello(){
-  var name;
-  this.setName=function(thyName){
-    name=thyName;
+function Hello() {
+  let name;
+  this.setName = function (thyName) {
+    name = thyName;
   };
-  this.sayHello=function(){
-    console.log('Hello '+ name);
+  this.sayHello = function () {
+    console.log(`Hello ${name}`);
   };
-};
-module.exports=Hello;
+}
+module.exports = Hello;

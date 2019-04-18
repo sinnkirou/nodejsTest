@@ -1,9 +1,9 @@
-function say(word){
-console.log(word);
+function say(word) {
+  console.log(word);
 }
 
-function execute(someFunction,value){
-someFunction(value);
+function execute(someFunction, value) {
+  someFunction(value);
 }
 
-execute(say,"HELLO WORLD");
+execute(say, 'HELLO WORLD');

@@ -1,9 +1,10 @@
-var EventEmitter =require('events').EventEmitter;
-var event=new EventEmitter();
-event.on('some_event', function(){
-console.log('some event get ran');
-})
+const { EventEmitter } = require('events');
 
-setTimeout(function(){
-event.emit('some_event');
-},10000);
+const event = new EventEmitter();
+event.on('some_event', () => {
+  console.log('some event get ran');
+});
+
+setTimeout(() => {
+  event.emit('some_event');
+}, 10000);

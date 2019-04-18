@@ -1,9 +1,9 @@
-var fs=require('fs');
+const fs = require('fs');
 
 console.log('prepare open');
-fs.open('input.txt','r+',function(err,fd){
-  if(err){
-    return concole.error(err.stack);
+fs.open('input.txt', 'r+', (err) => {
+  if (err) {
+    return console.error(err.stack);
   }
-  console.log('opened successful')
-})
+  console.log('opened successful');
+});

@@ -1,11 +1,11 @@
-var fs=require('fs');
+const fs = require('fs');
 
 console.log('view /tmp directory');
-fs.readdir('/tmp/',function(err,files){
-  if(err){
+fs.readdir('/tmp/', (err, files) => {
+  if (err) {
     return console.error(err.stack);
   }
-  files.forEach(function (file){
+  files.forEach((file) => {
     console.log(file);
-  })
-})
+  });
+});

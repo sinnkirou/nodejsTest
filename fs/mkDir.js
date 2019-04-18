@@ -1,8 +1,8 @@
-var fs=require('fs');
+const fs = require('fs');
 
 console.log('make directory /tmp/test/');
-fs.mkdir('/tmp/test/',function(err){
-  if(err){
+fs.mkdir('/tmp/test/', (err) => {
+  if (err) {
     return console.error(err.stack);
   }
   console.log('directory made successful');

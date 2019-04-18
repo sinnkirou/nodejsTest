@@ -1,4 +1,4 @@
-var buf=new Buffer('www.runoob.com');
-var json=buf.toJSON(buf);
+const buf = Buffer.from('www.runoob.com');
+const json = buf.toJSON(buf);
 
 console.log(json);

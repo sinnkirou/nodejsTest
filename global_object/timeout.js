@@ -1,7 +1,8 @@
-function printHello(){
-console.log('HELLO WORLD');
+function printHello() {
+  console.log('HELLO WORLD');
 }
 
-var t =setTimeout(printHello,2000);
+// eslint-disable-next-line no-unused-vars
+const t = setTimeout(printHello, 2000);
 
-//clearTimeout(t);
+// clearTimeout(t);
