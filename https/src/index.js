@@ -17,12 +17,12 @@ dotenv.config();
 const app = express();
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header(
+		"Access-Control-Allow-Headers",
+		"Origin, X-Requested-With, Content-Type, Accept"
+	);
+	next();
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -31,35 +31,35 @@ app.use(helmet()); //防护包含点击劫持、xss、嗅探攻击...
 app.use(compression());
 
 app.get("/", (req, res) => {
-  res.writeHead(200, { "Content-Type": "text/html" });
-  res.end(
-    "<a href='https://localhost:3050/vehicle/2016%20ACURA%20MDX%20TECH/TX/19910301'>click me</a>"
-  );
+	res.writeHead(200, { "Content-Type": "text/html" });
+	res.end(
+		"<a href='https://localhost:3050/vehicle/2016%20ACURA%20MDX%20TECH/TX/19910301'>click me</a>"
+	);
 });
 
 app.get("/vehicle/:ymm/:state/:date", (req, res) => {
-  const entities = new AllHtmlEntities();
-  const ymm = encodeURIComponent(req.params.ymm).toUpperCase();
-  const formattedYMM = entities.encode(
-    ymm.replace(/%2F/g, "&#47;").replace(".", "%26%2347%3B")
-  );
+	const entities = new AllHtmlEntities();
+	const ymm = encodeURIComponent(req.params.ymm).toUpperCase();
+	const formattedYMM = entities.encode(
+		ymm.replace(/%2F/g, "&#47;").replace(".", "%26%2347%3B")
+	);
 
-  var getData = function(filepath) {
-    filepath = __dirname + "/" + filepath;
-    return new Promise((resolve, reject) => {
-      fs.readFile(filepath, "utf-8", function(err, data) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data.trim());
-        }
-      });
-    });
-  };
+	var getData = function(filepath) {
+		filepath = __dirname + "/" + filepath;
+		return new Promise((resolve, reject) => {
+			fs.readFile(filepath, "utf-8", function(err, data) {
+				if (err) {
+					reject(err);
+				} else {
+					resolve(data.trim());
+				}
+			});
+		});
+	};
 
-  getData("sampleFile").then(data => {
-    res.end(
-      "Formatted YMM: " +
+	getData("sampleFile").then(data => {
+		res.end(
+			"Formatted YMM: " +
         formattedYMM +
         "\nOriginal YMM: " +
         req.params.ymm +
@@ -69,24 +69,24 @@ app.get("/vehicle/:ymm/:state/:date", (req, res) => {
         req.params.date +
         "\nData: " +
         data
-    );
-  });
+		);
+	});
 });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+	next(createError(404));
 });
 
 // error handler
 // eslint-disable-next-line no-unused-vars
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+	// set locals, only providing error in development
+	res.locals.message = err.message;
+	res.locals.error = req.app.get("env") === "development" ? err : {};
 
-  // render the error page
-  res.send("error: " + err.message);
+	// render the error page
+	res.send("error: " + err.message);
 });
 
 /**
@@ -99,9 +99,9 @@ app.set("port", port);
  * Create HTTPS server.
  */
 const options = {
-  key: fs.readFileSync(path.resolve(__dirname, "tls/server-key.pem")),
-  cert: fs.readFileSync(path.resolve(__dirname, "tls/server-cert.pem")),
-  rejectUnauthorized: true
+	key: fs.readFileSync(path.resolve(__dirname, "tls/server-key.pem")),
+	cert: fs.readFileSync(path.resolve(__dirname, "tls/server-cert.pem")),
+	rejectUnauthorized: true
 };
 var server = https.createServer(options, app);
 
@@ -117,19 +117,19 @@ server.on("listening", onListening);
  */
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+	var port = parseInt(val, 10);
 
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
+	if (isNaN(port)) {
+		// named pipe
+		return val;
+	}
 
-  if (port >= 0) {
-    // port number
-    return port;
-  }
+	if (port >= 0) {
+		// port number
+		return port;
+	}
 
-  return false;
+	return false;
 }
 
 /**
@@ -137,25 +137,25 @@ function normalizePort(val) {
  */
 
 function onError(error) {
-  if (error.syscall !== "listen") {
-    throw error;
-  }
+	if (error.syscall !== "listen") {
+		throw error;
+	}
 
-  var bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
+	var bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
 
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case "EACCES":
-      LogManager.getConsole().error(bind + " requires elevated privileges");
-      process.exit(1); // eslint-disable-line no-undef
-      break;
-    case "EADDRINUSE":
-      LogManager.getConsole().error(bind + " is already in use");
-      process.exit(1); // eslint-disable-line no-undef
-      break;
-    default:
-      throw error;
-  }
+	// handle specific listen errors with friendly messages
+	switch (error.code) {
+	case "EACCES":
+		LogManager.getConsole().error(bind + " requires elevated privileges");
+		process.exit(1); // eslint-disable-line no-undef
+		break;
+	case "EADDRINUSE":
+		LogManager.getConsole().error(bind + " is already in use");
+		process.exit(1); // eslint-disable-line no-undef
+		break;
+	default:
+		throw error;
+	}
 }
 
 /**
@@ -163,7 +163,7 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
-  LogManager.getConsole().info("Listening on " + bind);
+	var addr = server.address();
+	var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+	LogManager.getConsole().info("Listening on " + bind);
 }
