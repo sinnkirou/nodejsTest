@@ -1,0 +1,18 @@
+<html>
+
+<body>
+    <div>This is content, and data is: <span id="data"></span></div>
+    <input type="submit" id="submit" value="submit" />
+    <script>
+        document.getElementById('submit').addEventListener('click', function () {
+            document.getElementById('data').innerText = '';
+            fetch('/data').then(function (resp) {
+                return resp.text()
+            }).then(function (text) {
+                document.getElementById('data').innerText = text;
+            })
+        })
+    </script>
+</body>
+
+</html>
