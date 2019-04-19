@@ -21,6 +21,7 @@ http.createServer((request, response) => {
   if (request.url === '/data') {
     response.writeHead(200, {
       'Cache-Control': 'max-age=2, s-maxage=20',
+      Vary: 'User-Agent', // 针对某个头信息相同的情况下才能用缓存，一般会比对User-Agent，Accept等
     });
     wait(2).then(() => response.end('success'));
   }
