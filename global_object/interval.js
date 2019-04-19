@@ -1,5 +1,5 @@
-function printHello(){
-console.log('hello interval');
+function printHello() {
+  console.log('hello interval');
 }
 
-setInterval(printHello,2000);
+setInterval(printHello, 2000);

@@ -1,7 +1,7 @@
-var fs=require('fs');
+const fs = require('fs');
 
-var readerStream=fs.createReadStream('input.txt');
-var writerStream=fs.createWriteStream('output.txt');
+const readerStream = fs.createReadStream('input.txt');
+const writerStream = fs.createWriteStream('output.txt');
 
 readerStream.pipe(writerStream);
 

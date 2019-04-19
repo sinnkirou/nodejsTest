@@ -1,5 +1,5 @@
-var fs= require('fs');
-var zlib=require('zlib');
+const fs = require('fs');
+const zlib = require('zlib');
 
 fs.createReadStream('input.txt.gz')
   .pipe(zlib.createGunzip())

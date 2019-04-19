@@ -1,5 +1,5 @@
-function execute(someFunction,value){
-someFunction(value);
+function execute(someFunction, value) {
+  someFunction(value);
 }
 
-execute(function(word){console.log(word)},'Hello 123');
+execute((word) => { console.log(word); }, 'Hello 123');

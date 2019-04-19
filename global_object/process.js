@@ -1,7 +1,7 @@
-process.on('exit',function(code){
-  setTimeout(function(){
+process.on('exit', (code) => {
+  setTimeout(() => {
     console.log('the code will not be excuted');
-  },0);
+  }, 0);
   console.log('exit code: ', code);
 });
 

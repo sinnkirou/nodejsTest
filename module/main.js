@@ -1,2 +1,3 @@
-var hello=require('./hello');
+const hello = require('./hello');
+
 hello.world();

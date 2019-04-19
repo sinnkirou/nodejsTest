@@ -1,20 +1,21 @@
-var fs=require("fs");
-var data='';
+const fs = require('fs');
 
-var readerStream=fs.createReadStream('input.txt');
+let data = '';
+
+const readerStream = fs.createReadStream('input.txt');
 
 readerStream.setEncoding('UTF8');
 
-readerStream.on('data',function(chunk){
-data+=chunk;
+readerStream.on('data', (chunk) => {
+  data += chunk;
 });
 
-readerStream.on('end',function(){
-console.log(data);
+readerStream.on('end', () => {
+  console.log(data);
 });
 
-readerStream.on('error',function(err){
-console.log(err.stack);
+readerStream.on('error', (err) => {
+  console.log(err.stack);
 });
 
 

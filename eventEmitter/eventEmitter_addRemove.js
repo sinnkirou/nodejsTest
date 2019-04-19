@@ -1,30 +1,31 @@
-var events =require('events');
-var eventEmitter=new events.EventEmitter();
+const events = require('events');
 
-var listener1=function listener1(){
-console.log('listener1 run');
-}
+const eventEmitter = new events.EventEmitter();
 
-var listener2=function listener2(){
-console.log('listener2 run');
-}
+const listener1 = function listener1() {
+  console.log('listener1 run');
+};
 
-eventEmitter.addListener('connection',listener1);
-eventEmitter.on('connection',listener2);
+const listener2 = function listener2() {
+  console.log('listener2 run');
+};
 
-var eventListeners=require('events').EventEmitter.listenerCount(eventEmitter,'connection');
+eventEmitter.addListener('connection', listener1);
+eventEmitter.on('connection', listener2);
 
-console.log(eventListeners + ' listeners listen connect events');
+let eventListeners = require('events').EventEmitter.listenerCount(eventEmitter, 'connection');
+
+console.log(`${eventListeners} listeners listen connect events`);
 
 eventEmitter.emit('connection');
 
-eventEmitter.removeListener('connection',listener2);
+eventEmitter.removeListener('connection', listener2);
 console.log('listener2 will not listen');
 
 eventEmitter.emit('connection');
 
-eventListeners=require('events').EventEmitter.listenerCount(eventEmitter,'connection');
+eventListeners = require('events').EventEmitter.listenerCount(eventEmitter, 'connection');
 
-console.log(eventListeners + ' listeners listen connect events');
+console.log(`${eventListeners} listeners listen connect events`);
 
 console.log('program ended');

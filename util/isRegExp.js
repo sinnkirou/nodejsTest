@@ -1,4 +1,4 @@
-var util=require('util');
+const util = require('util');
 
 console.log(util.isRegExp(/some regexp/));
 

@@ -1,5 +1,5 @@
-var fs=require('fs');
+const fs = require('fs');
 
-fs.stat('./input.txt',function(err,stats){
-console.log(stats.isFile());
-})
+fs.stat('./input.txt', (err, stats) => {
+  console.log(stats.isFile());
+});
