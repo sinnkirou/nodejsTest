@@ -16,6 +16,7 @@ module.exports = {
     "no-console": 0,
     "func-names": 0,
     "no-array-constructor": 0,
-    "consistent-return": 0
+    "consistent-return": 0,
+    "prefer-arrow-callback": 0
   }
 };

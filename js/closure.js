@@ -9,7 +9,7 @@ function airthmetic() {
   return go;
 }
 
-console.log('dd go>>>>>>>>>>>>>');
+console.log('add go >>>>>>>>>>>>>>>>>>>');
 const add = airthmetic();
 
 let counta = add(3);
@@ -22,8 +22,8 @@ countb = add(3);
 console.log(`couner of counta: ${counta}`);
 console.log(`couner of countb: ${countb}`);
 
-console.log('\n\n\n\n');
-console.log('substract go>>>>>>>>>>>>>');
+console.log('\n');
+console.log('substract go >>>>>>>>>>>>');
 const substract = airthmetic();
 
 let countc = substract(-3);
