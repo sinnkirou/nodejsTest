@@ -32,7 +32,6 @@ function objt() {
 objt();
 console.log('\n');
 
-
 // 原型链中this
 console.log('原型链中this');
 function proto() {
@@ -50,7 +49,6 @@ function proto() {
 proto();
 console.log('\n');
 
-
 // 构造函数中this
 console.log('构造函数中this');
 function construnctor() {
@@ -60,7 +58,6 @@ function construnctor() {
 
   const o = new C();
   console.log(o.a); // logs 37
-
 
   function C2() {
     this.a = 37;
@@ -72,7 +69,6 @@ function construnctor() {
 }
 construnctor();
 console.log('\n');
-
 
 // callAndApply中this
 console.log('callAndApply中this');
@@ -90,7 +86,6 @@ function callAndApply() {
 callAndApply();
 console.log('\n');
 
-
 // bind中this
 console.log('bind中this');
 function bind() {
@@ -103,41 +98,50 @@ function bind() {
 
   const o = { a: 37, f, g };
   console.log(o.f()); // 37
-  console.log(o.g());// azerty
+  console.log(o.g()); // azerty
 }
 bind();
 console.log('\n');
-
 
 // arrowFunc中this
 // 由于箭头函数不绑定this， 它会捕获其所在（即定义的位置）上下文的this值， 作为自己的this值，
 console.log('arrowFunc中this');
 function arrowFunc() {
-  function Person() {
-    this.age = 0;
-    setTimeout(() => {
-      // 回调里面的 `this` 变量就指向了期望的那个对象了
-      console.log(this);
-      this.age += 1;
-    }, 1000);
+  function doCallbakc(cb) {
+    cb();
   }
 
+  function Person() {
+    this.age = 11;
+    doCallbakc(() => {
+      // 回调里面的 `this` 变量就指向了期望的那个对象了
+      console.log(this.age);
+      this.age += 1;
+    });
+    doCallbakc(function () {
+      // 回调里面的 `this` 变量就指向了期望的那个对象了
+      console.log(this.age);
+      this.age += 1;
+    });
+  }
+
+  // eslint-disable-next-line no-unused-vars
   const p = new Person();
 }
 arrowFunc();
 console.log('\n');
 
-
 // arrowMethod中this
+console.log('arrowMethod中this');
 function arrowMethod() {
   const obj = {
     i: 10,
-    b: () => console.log(this.i, this),
+    b: () => console.log(this.i),
     c() {
-      console.log(this.i, this);
+      console.log(this.i);
     },
   };
-  obj.b(); // undefined window{...}
-  obj.c(); // 10 Object {...}
+  obj.b(); // undefined
+  obj.c(); // 10
 }
 arrowMethod();
