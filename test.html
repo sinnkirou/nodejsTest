@@ -18,9 +18,39 @@
             <td>9</td>
         </tr>
     </table>
-    <script src="constructorFunc.js">
-        
-    </script>
-</body>
 
+    <!-- inline event -->
+    <button onclick="console.log(this);">show me</button>
+    <button onclick="(function(){console.log(this)})();">show inner this</button>
+    <button onclick="(function(){'use strict';console.log(this)})();">use strict</button>
+
+    <!-- event listener -->
+    <button id="submit">event listener</button>
+</body>
+<script>
+    function useStrict() {
+        const f = () => {
+            'use strict';
+            return this;
+        };
+        const p = () => this;
+        const q = function () { return this; };
+        const r = function () {
+            'use strict';
+            return this;
+        };
+        console.log(1, f() === window);// 1 true
+        console.log(2, f() === p());// 2 true
+        console.log(3, f() === q());// 3 true
+        console.log(4, f() === r());// 4 false
+    }
+    useStrict();
+
+    var submitBtn = document.getElementById('submit');
+    function handleClick(e){
+        'use strict';
+        e.preventDefault();
+        console.log(this);
+    }
+</script>
 </html>

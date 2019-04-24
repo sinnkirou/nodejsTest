@@ -1,3 +1,7 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable strict */
+/* eslint-disable lines-around-directive */
+
 // 对象中的this
 console.log('对象中的this');
 function objt() {
@@ -107,25 +111,26 @@ console.log('\n');
 // 由于箭头函数不绑定this， 它会捕获其所在（即定义的位置）上下文的this值， 作为自己的this值，
 console.log('arrowFunc中this');
 function arrowFunc() {
-  function doCallbakc(cb) {
+  function doCallback(cb) {
     cb();
   }
 
   function Person() {
     this.age = 11;
-    doCallbakc(() => {
+    doCallback(() => {
       // 回调里面的 `this` 变量就指向了期望的那个对象了
-      console.log(this.age);
+      console.log('isGlobal', this === global);
+      console.log('age', this.age); // 11
       this.age += 1;
     });
-    doCallbakc(function () {
+    doCallback(function () {
       // 回调里面的 `this` 变量就指向了期望的那个对象了
-      console.log(this.age);
+      console.log('isGlobal', this === global);
+      console.log('age', this.age); // undefined
       this.age += 1;
     });
   }
 
-  // eslint-disable-next-line no-unused-vars
   const p = new Person();
 }
 arrowFunc();
@@ -136,12 +141,62 @@ console.log('arrowMethod中this');
 function arrowMethod() {
   const obj = {
     i: 10,
-    b: () => console.log(this.i),
+    b: () => {
+      console.log('isGlobal', this === global);
+      console.log('i', this.i);
+    },
     c() {
-      console.log(this.i);
+      console.log('isGlobal', this === global);
+      console.log('i', this.i);
     },
   };
   obj.b(); // undefined
   obj.c(); // 10
 }
 arrowMethod();
+console.log('\n');
+
+// using strict中this
+console.log('using strict中this');
+function useStrict() {
+  const f = () => {
+    'use strict';
+    return this;
+  };
+  const p = () => this;
+  const q = function () { return this; };
+  const r = function () {
+    'use strict';
+    return this;
+  };
+  console.log(1, f() === global);// 1 true
+  console.log(2, f() === p());// 2 true
+  console.log(3, f() === q());// 3 true
+  console.log(4, f() === r());// 4 false
+  console.log(r());
+}
+useStrict();
+console.log('\n');
+
+// setTimeoutOrInterval中this
+console.log('setTimeout中this');
+function setTimeoutOrInterval() {
+  function Person() {
+    this.age = 0;
+    setTimeout(function () {
+      console.log(this);
+    }, 1000);
+  }
+  const p = new Person();// 3秒后返回 window 对象
+
+  // 通过bind绑定
+  function Person2() {
+    this.age = 0;
+    setTimeout((function () {
+      console.log(this);
+    }).bind(this), 1000);
+  }
+
+  const p2 = new Person2();// 3秒后返回构造函数新生成的对象 Person{...}
+}
+setTimeoutOrInterval();
