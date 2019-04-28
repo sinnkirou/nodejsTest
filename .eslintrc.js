@@ -17,6 +17,7 @@ module.exports = {
     "func-names": 0,
     "no-array-constructor": 0,
     "consistent-return": 0,
-    "prefer-arrow-callback": 0
+    "prefer-arrow-callback": 0,
+    quotes: [2, "single"]
   }
 };

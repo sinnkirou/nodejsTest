@@ -1,3 +1,7 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable strict */
+/* eslint-disable lines-around-directive */
+
 // 对象中的this
 console.log('对象中的this');
 function objt() {
@@ -32,7 +36,6 @@ function objt() {
 objt();
 console.log('\n');
 
-
 // 原型链中this
 console.log('原型链中this');
 function proto() {
@@ -50,7 +53,6 @@ function proto() {
 proto();
 console.log('\n');
 
-
 // 构造函数中this
 console.log('构造函数中this');
 function construnctor() {
@@ -60,7 +62,6 @@ function construnctor() {
 
   const o = new C();
   console.log(o.a); // logs 37
-
 
   function C2() {
     this.a = 37;
@@ -72,7 +73,6 @@ function construnctor() {
 }
 construnctor();
 console.log('\n');
-
 
 // callAndApply中this
 console.log('callAndApply中this');
@@ -90,7 +90,6 @@ function callAndApply() {
 callAndApply();
 console.log('\n');
 
-
 // bind中this
 console.log('bind中this');
 function bind() {
@@ -103,23 +102,33 @@ function bind() {
 
   const o = { a: 37, f, g };
   console.log(o.f()); // 37
-  console.log(o.g());// azerty
+  console.log(o.g()); // azerty
 }
 bind();
 console.log('\n');
-
 
 // arrowFunc中this
 // 由于箭头函数不绑定this， 它会捕获其所在（即定义的位置）上下文的this值， 作为自己的this值，
 console.log('arrowFunc中this');
 function arrowFunc() {
+  function doCallback(cb) {
+    cb();
+  }
+
   function Person() {
-    this.age = 0;
-    setTimeout(() => {
+    this.age = 11;
+    doCallback(() => {
       // 回调里面的 `this` 变量就指向了期望的那个对象了
-      console.log(this);
+      console.log('isGlobal', this === global);
+      console.log('age', this.age); // 11
       this.age += 1;
-    }, 1000);
+    });
+    doCallback(function () {
+      // 回调里面的 `this` 变量就指向了期望的那个对象了
+      console.log('isGlobal', this === global);
+      console.log('age', this.age); // undefined
+      this.age += 1;
+    });
   }
 
   const p = new Person();
@@ -127,17 +136,67 @@ function arrowFunc() {
 arrowFunc();
 console.log('\n');
 
-
 // arrowMethod中this
+console.log('arrowMethod中this');
 function arrowMethod() {
   const obj = {
     i: 10,
-    b: () => console.log(this.i, this),
+    b: () => {
+      console.log('isGlobal', this === global);
+      console.log('i', this.i);
+    },
     c() {
-      console.log(this.i, this);
+      console.log('isGlobal', this === global);
+      console.log('i', this.i);
     },
   };
-  obj.b(); // undefined window{...}
-  obj.c(); // 10 Object {...}
+  obj.b(); // undefined
+  obj.c(); // 10
 }
 arrowMethod();
+console.log('\n');
+
+// using strict中this
+console.log('using strict中this');
+function useStrict() {
+  const f = () => {
+    'use strict';
+    return this;
+  };
+  const p = () => this;
+  const q = function () { return this; };
+  const r = function () {
+    'use strict';
+    return this;
+  };
+  console.log(1, f() === global);// 1 true
+  console.log(2, f() === p());// 2 true
+  console.log(3, f() === q());// 3 true
+  console.log(4, f() === r());// 4 false
+  console.log(r());
+}
+useStrict();
+console.log('\n');
+
+// setTimeoutOrInterval中this
+console.log('setTimeout中this');
+function setTimeoutOrInterval() {
+  function Person() {
+    this.age = 0;
+    setTimeout(function () {
+      console.log(this);
+    }, 1000);
+  }
+  const p = new Person();// 3秒后返回 window 对象
+
+  // 通过bind绑定
+  function Person2() {
+    this.age = 0;
+    setTimeout((function () {
+      console.log(this);
+    }).bind(this), 1000);
+  }
+
+  const p2 = new Person2();// 3秒后返回构造函数新生成的对象 Person{...}
+}
+setTimeoutOrInterval();
