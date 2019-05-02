@@ -1,24 +1,14 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
 
 <body>
-    <table border="1">
-        <tr>
-            <th>1</th>
-            <th>2</th>
-            <th>3</th>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>5</td>
-            <td>6</td>
-        </tr>
-        <tr>
-            <td>7</td>
-            <td>8</td>
-            <td>9</td>
-        </tr>
-    </table>
-
     <!-- inline event -->
     <button onclick="console.log(this);">show me</button>
     <button onclick="(function(){console.log(this)})();">show inner this</button>
@@ -34,23 +24,27 @@
             return this;
         };
         const p = () => this;
-        const q = function () { return this; };
+        const q = function () {
+            return this;
+        };
         const r = function () {
             'use strict';
             return this;
         };
-        console.log(1, f() === window);// 1 true
-        console.log(2, f() === p());// 2 true
-        console.log(3, f() === q());// 3 true
-        console.log(4, f() === r());// 4 false
+        console.log(1, f() === window); // 1 true
+        console.log(2, f() === p()); // 2 true
+        console.log(3, f() === q()); // 3 true
+        console.log(4, f() === r()); // 4 false
     }
     useStrict();
 
     var submitBtn = document.getElementById('submit');
-    function handleClick(e){
+
+    function handleClick(e) {
         'use strict';
         e.preventDefault();
         console.log(this);
     }
 </script>
+
 </html>
