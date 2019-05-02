@@ -18,6 +18,7 @@ module.exports = {
     "no-array-constructor": 0,
     "consistent-return": 0,
     "prefer-arrow-callback": 0,
-    quotes: [2, "single"]
+    "quotes": [2, "single"],
+    "linebreak-style": 0
   }
 };
