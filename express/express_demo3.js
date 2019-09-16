@@ -2,7 +2,8 @@ const express = require('express');
 
 const app = express();
 
-app.use(express.static('public'));
+// eslint-disable-next-line no-undef
+app.use(express.static(`${__dirname}/public`));
 
 app.get('/', (req, res) => {
   res.send('Hello World');
