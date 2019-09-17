@@ -47,9 +47,10 @@ io.on('connection', function (socket) {
     console.log(hashID);
   });
 
-  socket.on('disconnect', function (id) {
+  socket.on('disconnect', function () {
+    const id = hashID.indexOf(socket.id);
     hashID[id] = null;
-    console.log('user disconnected');
+    console.log(`user ${id} disconnected`);
   });
 
   socket.on('pMessage', function (toId, data, errorCallBack) {
@@ -68,7 +69,7 @@ io.on('connection', function (socket) {
       if (toSocket) {
         toSocket.emit('message', data);
       } else {
-        console.log('online message should send');
+        console.log('offline message should send');
       }
     } else if (errorCallBack) errorCallBack();
   });
